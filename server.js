@@ -1,26 +1,17 @@
-const express = require("express");
 require("dotenv").config();
+
+const app = require("./src/app");
 const connectDB = require("./src/config/db");
 
-const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+});
 
-connectDB();
-app.get("/",(req, res) =>{
-res.json({
-    "success": true,
-    "message": "Server is rauning "
-})
-})
-
-
-
-
-
-
-
-
-app.listen(PORT, ()=>{
-    console.log(`Server is Running http://localhost${PORT}`)
-})
+process.on("unhandledRejection", (err) => {
+  console.error(`Unhandled Rejection: ${err.message}`);
+  process.exit(1);
+});

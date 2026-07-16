@@ -1,4 +1,3 @@
-const student = require("../models/Student");
 const ApiError = require("../utils/Apierror");
 const asyncHandler = require("../utils/Asynchandler");
 const {sendSuccess} = require("../utils/Apiresponse");
@@ -60,8 +59,7 @@ if(req.query.search){
 // get by id
 
 const getStudentsById = asyncHandler(async(req, res)=>{
-    const student = Student.findById(req.Pramas.is);
-
+const student = await Student.findById(req.params.id);
     if(!student){
         throw new ApiError(404, "Student not Found!")
     }
