@@ -35,8 +35,7 @@ const getStudents = asyncHandler(async (req , res) => {
 const filter = {};
 if(req.query.search){
      const regex = new RegExp(req.query.search, 'i');
-    filter.$or = [{ fullName: regex }, { email: regex }, { course: regex }, { department: regex }];
-}
+filter.$or = [{ full_Name: regex }, { email: regex }, { course: regex }, { department: regex }];}
 
  const [students, total] = await Promise.all([
     Student.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit),
